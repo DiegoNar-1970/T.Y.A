@@ -1,0 +1,20 @@
+GET http://localhost:1234/contract
+#######
+
+POST http://localhost:1234/contract
+Content-Type: application/json
+
+{
+  "id_persona": "7f620aa8-2461-11f0-b240-1c1b0dfcc3c5",
+  "num_contract": "123456783",
+  "demanda": "1234",
+  "executive": "Diego",
+  "honorario_final": 0,
+  "iva": 0,
+  "observacion": "test",
+  "path": "http://localhost:3000/contract.pdf",
+  "type_of": "test"
+}
+
+###
+GET http://localhost:1234/contract/123456783
