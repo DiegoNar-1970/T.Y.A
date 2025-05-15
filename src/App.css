@@ -1,0 +1,122 @@
+
+*{
+  scrollbar-width: none;
+  font-family: 'sfProRegular';
+}
+textarea{
+  resize: none;
+  form-sizing: content;
+}
+
+@font-face {
+  font-family: 'sfProRegular';
+  src: url('./assets/sf-pro-display/SFPRODISPLAYREGULAR.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'sfProMedium';
+  src: url('./assets/sf-pro-display/SFPRODISPLAYMEDIUM.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+html{
+  background-color: #f5f5f7;
+}
+
+ :root {
+    --color-f-apple: #0071e3;
+    --color-bg: #f5f5f7;
+    --color-blanco: white;
+    --color-secundario: #86868b;
+    --color-hover: #0d86ffbb;
+    --color-text-r: #007bff;
+    --color-text-icons: #3d9bff;
+    --font-sfRegular: 'sfProRegular', sans-serif;
+    --font-sfMedium: 'sfProMedium', sans-serif;
+}
+
+@layer base {
+  .text-apple{
+    color: var(--color-text-icons);
+  }
+    .bg-apple{
+      background-color: var(--color-f-apple);
+    }
+    .bg-bg {
+      background-color: var(--color-bg);
+    }
+    .bg-hover:hover{
+      background-color: var(--color-bg);
+    }
+  
+    .fondo-blanco {
+      background-color: var(--color-blanco);
+    }
+    .color-l-s {
+      color: var(--color-secundario);
+    }
+    .color-hover {
+      background-color: var(--color-hover);
+    }
+    .color-resaltado{
+      color: var(--color-text-r);
+    }
+    .font-sfRegular {
+      font-family: var(--font-sfRegular);
+    }
+  
+    .font-sfMedium {
+      
+      font-family: var(--font-sfMedium);
+    }
+    
+    @media (min-width: 768px) {
+      .app {
+        display: grid;
+        grid-template-areas:
+          "aside main main"
+          "footer footer footer";
+        grid-template-columns: 250px 1fr;
+        grid-template-rows: 1fr auto;
+      }
+    }
+  }
+  .loader {
+    width: 15px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    animation: l5 1s infinite linear alternate;
+    margin: auto;
+    margin-top: 20vh;
+  }
+  @keyframes l5 {
+      0%  {box-shadow: 20px 0 #000, -20px 0 #0002;background: #000 }
+      33% {box-shadow: 20px 0 #000, -20px 0 #0002;background: #0002}
+      66% {box-shadow: 20px 0 #0002,-20px 0 #000; background: #0002}
+      100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #000 }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+  
+  .skeleton {
+    background: linear-gradient(
+      to right,
+      #e0e0e0 8%,
+      #f0f0f0 18%,
+      #e0e0e0 33%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 1.5s infinite linear;
+  }
