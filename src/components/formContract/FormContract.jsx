@@ -6,13 +6,19 @@ import ContactSection from './fields/ContactSection';
 import ContractInfoSection from './fields/ContractInfoSection';
 import ContractPreview from './fields/ContractPreview.jsx';
 import FormHeader from './fields/FormHeader';
-import GenericsInput from './fields/GenericsInput.jsx';
+import { GenericInput } from './fields/GenericInput.jsx';
+import { GenericOption } from './fields/GenericOption.jsx';
 import InputArea from './fields/InputArea.jsx';
 import PartiesSection from './fields/PartiesSection';
-import PaymentSection from './fields/PaymentSection';
 
 const FormContract = () => {
- 
+
+  const clientTypes = [
+    { value: 'cedula', label: 'Cédula' },
+    { value: 'pasaporte', label: 'Pasaporte' },
+    { value: 'extranjera', label: 'CC Extranjera' }
+  ];
+
     const {
       showContractPreview,
       setShowContractPreview,
@@ -21,10 +27,12 @@ const FormContract = () => {
       setDataFormContract,
       // dataFormContract
     } = useSectionContractStore();
-    
+
+
     const handleResetForm = () => {
       reset(); 
     };
+
     const handleModalOpen = async ()=> {
       //valida los campos del formulario 
       const isValid = await trigger(); 
@@ -33,7 +41,9 @@ const FormContract = () => {
         return;
       }
       const formData = getValues();
-      const fileName=`${formData?.client_name || 'cliente'}_${formData?.num_radicado || ''}.pdf`
+      const name = formData?.client_name? formData.client_name : formData?.demandantes[0].name
+      const idContract = formData?.num_radicado ? formData.num_radicado : formData.num_contract
+      const fileName=`${name}_${idContract}.pdf`
       const newFormData={
         ...formData,
         fileName:fileName
@@ -48,7 +58,8 @@ const FormContract = () => {
       formState: { errors },
       getValues,
       trigger,
-      reset
+      reset,
+      watch
     } = useForm({
       defaultValues: {
         num_contract: null,
@@ -64,6 +75,8 @@ const FormContract = () => {
         email: null,
         client_doc:null,
         client_name:null,
+        client_type_cc:null,
+        there_is_honorarios: false,
         num_radicado:null,
         service:null,
         alcance:null,
@@ -92,7 +105,7 @@ const FormContract = () => {
 
     const agregarDemandante = () => appendDemandante({ name: null, type_of_doc: null, document: null });
     const agregarDemandado = () => appendDemandado({ name: null, type_of_doc: null, document: null });
-
+    
 
     const handleVistaPrevia = async () => {
       const isValid = await trigger(); 
@@ -103,12 +116,16 @@ const FormContract = () => {
       }
 
       const formData = getValues();
-      const fileName=`${formData?.client_name || 'cliente'}_${formData?.num_radicado || ''}.pdf`
+      const name = formData?.client_name? formData.client_name : formData?.demandantes[0].name
+      const idContract = formData?.num_radicado ? formData.num_radicado : formData.num_contract
+      const fileName=`${name}_${idContract}.pdf`
+
       const newFormData={
         ...formData,
         fileName:fileName
       }
       setDataFormContract(newFormData)
+      
       setShowContractPreview();
       };  
 
@@ -124,6 +141,7 @@ const FormContract = () => {
           {typeContract === constTypeContract.LEGAL_SERVICES || typeContract === constTypeContract.CIVIL ? (
             <>
               <ContractInfoSection register={register} errors={errors} />
+
               <PartiesSection 
               type="demandantes"
               fields={demandantesField}
@@ -146,31 +164,53 @@ const FormContract = () => {
           
           {typeContract === constTypeContract.SUBSANACION && (
             <>
-            <GenericsInput
-              label1="Radicado"
-              type1="text"
-              value1="num_radicado"
-              placeholder1="Ingrese el número de radicado"
-              label2="Servicio"
-              type2="text"
-              value2="service"
-              placeholder2="Ingrese el tipo de servicio "
-              register={register}
-              errors={errors}
-              />
-              <GenericsInput
-                label1="Nombre del cliente"
-                type1="text"
-                value1="client_name"
-                placeholder1="Ingrese el nombre del cliente"
-                label2="Documento de identidad"
-                type2="number"
-                asNumeric={true}
-                value2="client_doc"
-                placeholder2="Ingrese documento "
-                register={register}
-                errors={errors}
-                />
+            <div className='flex w-full gap-6 mb-[10px]'>
+                <GenericInput
+                  label="Radicado"
+                  type="text"
+                  value="num_radicado"
+                  placeholder="Ingrese el número de radicado"
+                  register={register}
+                  errors={errors}
+                  />
+                <GenericInput
+                  label="Servicio"
+                  type="text"
+                  value="service"
+                  placeholder="Ingrese el tipo de servicio "
+                  errors={errors}
+                  register={register}
+                  />
+            </div>
+            <div className='flex w-full gap-6 mb-[10px]'>
+              <GenericInput
+                  label="Nombre del cliente"
+                  type="text"
+                  value="client_name"
+                  placeholder="Ingrese el nombre del cliente"
+                  register={register}
+                  errors={errors}
+                  />
+                  <GenericOption
+                    label="Tipo de documento"
+                    name="client_type_cc"
+                    options={clientTypes}
+                    register={register}
+                    errors={errors}
+                    />
+                  <GenericInput
+                  label="Documento de identidad"
+                  type="number"
+                  asNumeric={true}
+                  value="client_doc"
+                  placeholder="Ingrese documento "
+                  register={register}
+                  errors={errors}
+                  />
+            </div>
+
+             
+                
               <InputArea
                   label="Ingrese el Alcance del servicio"
                   value="alcance"
@@ -186,15 +226,48 @@ const FormContract = () => {
             
             
           )}
-
           
-          <PaymentSection 
-            register={register} 
-            errors={errors} />
+          <div className='flex w-full gap-6 mb-[10px]'>
+              <GenericInput 
+                  label="Monto Total"
+                  type="number"
+                  asNumeric={true}
+                  value="paiment"
+                  placeholder="Ingrese el total a cobrar "
+                  register={register}
+                  errors={errors}
+              />
+              {watch('there_is_honorarios')
+              ?
+                <GenericInput 
+                  label="Porcentaje de honorarios"
+                  type="number"
+                  asNumeric={true}
+                  value="porcentage_honorario"
+                  placeholder="0 "
+                  register={register}
+                  errors={errors}
+                />
+              :
+                ''}
+              
+          </div>
+          
           <ContactSection 
             register={register} 
             errors={errors} />
+
+          {typeContract != constTypeContract.SUBSANACION ? 
           
+          <div className='flex gap-2 items-center'>
+            <span>Marca solo si el contrato lleva Honorarios</span>
+            <input type="checkbox" 
+            {...register("there_is_honorarios")}/>           
+          </div>
+          :''}
+
+          
+              
           <ActionButtons
             onPreview={handleVistaPrevia} 
             handleModalOpen={ handleModalOpen}
@@ -205,9 +278,10 @@ const FormContract = () => {
 
         {showContractPreview === true ? (
           <ContractPreview />
-          ):''}
+        ):''}
         
       </div>
     );
   };
 export default FormContract;
+        

@@ -1,10 +1,17 @@
 import { Document, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import React from 'react';
 import img from '../../../assets/images/background.jpeg';
+import firmaImage from '../../../assets/images/firm.png';
 import { constTypeContract } from '../const/constTypeContract';
 
 // Estilos para el documento
 const styles = StyleSheet.create({
+  signatureImage: {
+    width: 150, // Ajusta según el tamaño de tu imagen
+    height: 40, // Altura similar al grosor de la línea original
+    marginTop: 10,
+    marginBottom: 10
+  },
   page: {
     padding: 40,
     position: 'relative',
@@ -77,13 +84,11 @@ const styles = StyleSheet.create({
   signatureLine: {
     borderTop: '1px solid black',
     width: '100%',
-    marginTop: 30,
+    marginTop: 100,
   },
 });
 
 const ServiceContractPdf = ({data}) => {
-
-
 
   const {
     num_contract,
@@ -162,10 +167,10 @@ const ServiceContractPdf = ({data}) => {
           <Text style={styles.text}>
             Los contratantes de consumo hemos pactado como valor para
             la atención de los negocios relacionados en la cláusula primera de este contrato la
-            suma de $<Text style={styles.bold}>{paiment}</Text> (<Text style={styles.bold}>{montoLetras.toUpperCase()}</Text>) si el proceso termina de manera favorable
+            suma de $<Text style={styles.bold}>{paiment}</Text> (<Text style={styles.bold}>{montoLetras.toUpperCase()}</Text>) {porcentage_honorario > 0 ? (<Text style={styles.text}> si el proceso termina de manera favorable
             en sentencia judicial o por medio de conciliación, se cancelará adicionalmente por
             parte del MANDANTE la suma del <Text style={styles.bold}>{porcentage_honorario}%</Text> sobre las
-            pretensiones obtenidas en la demanda. <Text style={styles.bold}>Parágrafo:</Text> Las costas procesales y
+            pretensiones obtenidas en la demanda.</Text>): '' } <Text style={styles.bold}>Parágrafo:</Text> Las costas procesales y
             agencias en derecho que se generen, serán para EL MANDANTE, y cobrados por
             el mismo.
           </Text>
@@ -232,12 +237,9 @@ const ServiceContractPdf = ({data}) => {
             determininen de conformidad con la cláusula TERCERA del presente contrato de
             prestación de servicios jurídicos profesionales.
           </Text>
+          
         </View>
-      </Page>
 
-      {/* Página 3 */}
-      <Page size="A4" style={styles.page}>
-        <Image src={img} style={styles.backgroundImage} />
         <View style={styles.section}>
           <Text style={styles.clauseTitleP3}>NOVENA: TITULO EJECUTIVO.</Text>
           <Text style={styles.text}>
@@ -246,6 +248,12 @@ const ServiceContractPdf = ({data}) => {
             ley para las partes.
           </Text>
         </View>
+      </Page>
+
+      {/* Página 3 */}
+      <Page size="A4" style={styles.page}>
+        <Image src={img} style={styles.backgroundImage} />
+
 
         <View style={styles.section}>
           <Text style={styles.clauseTitle}>DECIMA:</Text>
@@ -296,6 +304,17 @@ const ServiceContractPdf = ({data}) => {
 
         <View style={styles.signatureSection}>
           <View style={styles.signatureBlock}>
+            <Text style={styles.text}>TRUJILLO Y ASOCIADOS LAW GROUP</Text>
+            <Text style={[styles.text, styles.bold]}>MARTHA SOFIA OSPINA GIRALDO.</Text>
+            <Text style={styles.text}>Representante legal.</Text>
+            <Text style={styles.text}>C.C. 24.309.970</Text>
+            <Image 
+              src={firmaImage} 
+              style={styles.signatureImage}
+            />
+          </View>
+        </View>
+        <View style={styles.signatureBlock}>
             <Text style={styles.text}>EL MANDANTE:</Text>
             {demandantes.map((demandante, index) => (
               <React.Fragment key={index}>
@@ -303,17 +322,7 @@ const ServiceContractPdf = ({data}) => {
                 <Text style={styles.text}>{demandante.type_of_doc} {demandante.document}</Text>
               </React.Fragment>
             ))}
-            <View style={styles.signatureLine} />
           </View>
-
-          <View style={styles.signatureBlock}>
-            <Text style={styles.text}>TRUJILLO Y ASOCIADOS LAW GROUP</Text>
-            <Text style={[styles.text, styles.bold]}>MARTHA SOFIA OSPINA GIRALDO.</Text>
-            <Text style={styles.text}>Representante legal.</Text>
-            <Text style={styles.text}>C.C. 24.309.970</Text>
-            <View style={styles.signatureLine} />
-          </View>
-        </View>
       </Page>
 
       {/* Página 4 - Autorización de datos */}
@@ -361,6 +370,16 @@ const ServiceContractPdf = ({data}) => {
 
         <View style={[styles.signatureSection, { marginTop: 10 }]}>
           <View style={styles.signatureBlock}>
+            <Text style={styles.text}>TRUJILLO Y ASOCIADOS LAW GROUP</Text>
+            <Text style={[styles.text, styles.bold]}>MARTHA SOFIA OSPINA GIRALDO.</Text>
+            <Text style={styles.text}>Representante legal.</Text>
+            <Text style={styles.text}>C.C. 24.309.970</Text>
+            <Image 
+              src={firmaImage} 
+              style={styles.signatureImage}
+            />
+          </View>
+          <View style={[styles.signatureBlock,{marginTop:150}]}>
             <Text style={styles.text}>EL MANDANTE:</Text>
             {demandantes.map((demandante, index) => (
               <React.Fragment key={index}>
@@ -368,15 +387,7 @@ const ServiceContractPdf = ({data}) => {
                 <Text style={styles.text}>{demandante.type_of_doc} {demandante.document}{index < demandantes.length - 1 ? ',' : ''}</Text>
               </React.Fragment>
             ))}
-            <View style={styles.signatureLine} />
-          </View>
-
-          <View style={styles.signatureBlock}>
-            <Text style={styles.text}>TRUJILLO Y ASOCIADOS LAW GROUP</Text>
-            <Text style={[styles.text, styles.bold]}>MARTHA SOFIA OSPINA GIRALDO.</Text>
-            <Text style={styles.text}>Representante legal.</Text>
-            <Text style={styles.text}>C.C. 24.309.970</Text>
-            <View style={styles.signatureLine} />
+            
           </View>
         </View>
       </Page>

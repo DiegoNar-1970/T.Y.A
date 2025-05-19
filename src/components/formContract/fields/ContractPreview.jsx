@@ -8,7 +8,7 @@ import SubsanacionContractPDF from './SubsanacionContractPDF';
 
 export const ContractPreview = (() => {
 
-  const { setShowContractPreview, typeContract} = useSectionContractStore();
+  const { setShowContractPreview, typeContract, dataFormContract} = useSectionContractStore();
 
   const handleClick=() => {
     setShowContractPreview();
@@ -20,9 +20,9 @@ export const ContractPreview = (() => {
         <PDFViewer width="70%" height="700px">
           {typeContract === constTypeContract .LEGAL_SERVICES || 
            typeContract === constTypeContract.CIVIL ? (
-            <ServiceContractPdf  />
+            <ServiceContractPdf  data={dataFormContract}/>
           ) : (
-            <SubsanacionContractPDF />
+            <SubsanacionContractPDF  data={dataFormContract}/>
           )}
         </PDFViewer>
         <IoCloseSharp 

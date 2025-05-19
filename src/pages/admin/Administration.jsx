@@ -8,8 +8,8 @@ import AccessCard from '../../components/cards/AccessCard';
   const options = [
     {
       id: 1,
-      title: "Documentos",
-      description: "Gestiona todos tus documentos importantes",
+      title: "Contratos",
+      description: "Gestiona los contratos",
       icon: <FaFileAlt className="text-blue-500" size={24} />,
       color: "bg-white hover:bg-blue-100",
       navigate:''
@@ -20,7 +20,7 @@ import AccessCard from '../../components/cards/AccessCard';
       description: "Administra la información de tu equipo",
       icon: <FaUserTie className="text-green-500" size={24} />,
       color: "bg-white   hover:bg-green-100",
-      navigate:''
+      navigate:'/tabla-empleado'
     },
     {
       id: 3,
@@ -35,14 +35,16 @@ import AccessCard from '../../components/cards/AccessCard';
       title: "Procesos",
       description: "Supervisa y optimiza tus flujos de trabajo",
       icon: <FaProjectDiagram className="text-orange-500" size={24} />,
-      color: "bg-white hover:bg-orange-100"
+      color: "bg-white hover:bg-orange-100",
+      navigate:''
     },
     {
       id: 5,
       title: "Plan de Trabajo",
       description: "Organiza y planifica tus actividades",
       icon: <FaCalendarAlt className="text-red-500" size={24} />,
-      color: "bg-white hover:bg-red-100"
+      color: "bg-white hover:bg-red-100",
+      navigate:''
     },
     {
       id: 6,
@@ -50,6 +52,7 @@ import AccessCard from '../../components/cards/AccessCard';
       description: "Gestiona pagos y facturación",
       icon: <FaMoneyBillWave   className="text-teal-500" size={24} />,
       color: "bg-white hover:bg-teal-100",
+      navigate:''
       
     }
   ];

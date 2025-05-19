@@ -4,6 +4,9 @@ import { TbCirclePlus, TbFileX, TbLibraryPlus, TbSearch } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 import ContractTable from '../../components/tables/ContractTable';
 import { useSectionContractStore } from '../../store/contratState';
+import { CardContractType } from './CardContractType';
+
+
  const Contract = () => {
   const navigate = useNavigate();
   const {setTypeContract} = useSectionContractStore(); // Assuming you have a store for managing 
@@ -64,42 +67,31 @@ import { useSectionContractStore } from '../../store/contratState';
           </div>
             { renderer === 'genre' && (
                 <section className='flex gap-[1.5rem] flex-wrap'>
-                <div className='bg-white rounded-[20px] p-3 gap-4 flex flex-col flex-1 hover:bg-[#ffffff81] transition duration-300 ease-in-out hover:scale-105'>
-                  <h4 className='text-[20px]'>Contrato Subsanación</h4>
-                  <span className='text-[13px] text-[#86868b]'>Corregir errores o inconsistencias</span>
-                  <div   className=' hover:bg-[#0077ed]
-                  group hover:text-white flex gap-2 self-center outline-[1px] rounded-[20px] w-full justify-center p-1 outline-[#b1b1b1] cursor-pointer'>
-                    <TbFileX className='text-[25px] text-[#007bff] group-hover:text-white' />
-                     <button onClick={()=>getContractType('subsanacion')} className='cursor-pointer'>Generar</button> 
-                  </div>
-                </div>
-                <div className='bg-white rounded-[20px] p-3 gap-4 flex flex-col flex-1 hover:bg-[#ffffff81] transition duration-300 ease-in-out hover:scale-105 '>
-                  <h4 className='text-[20px]'>Prestacion de Servicios</h4>
-                  <span className='text-[13px] text-[#86868b]'>Prestacion de nuestros servicios</span>
-                  <div    className='hover:bg-[#0077ed]
-                  group hover:text-white flex gap-2 self-center outline-[1px] rounded-[20px] w-full justify-center p-1 outline-[#b1b1b1] cursor-pointer'>
-                    <TbLibraryPlus className='text-[25px] text-[#007bff] group-hover:text-white' />
-                     <button onClick={()=>getContractType('servicios')} className='cursor-pointer'>Generar</button> 
-                  </div>
-                </div>
-                <div className='bg-white rounded-[20px] p-3 gap-4 flex flex-col  flex-1  hover:bg-[#ffffff81] transition duration-300 ease-in-out hover:scale-105'>
-                  <h4 className='text-[20px]'>Contrato Juzgado civil</h4>
-                  <span className='text-[13px] text-[#86868b]'>Contrato civiles</span>
-                  <div   className=' hover:bg-[#0077ed]
-                  group hover:text-white flex gap-2 self-center outline-[1px] rounded-[20px] w-full justify-center p-1 outline-[#855858] cursor-pointer'>
-                    <TbLibraryPlus className='text-[25px] text-[#007bff] group-hover:text-white' />
-                     <button onClick={()=>getContractType('civil')} className='cursor-pointer'>Generar</button> 
-                  </div>
-                </div>
+            
+                <CardContractType 
+                  title='Contrato Subsanación'
+                  typeContract='subsanacion'
+                  Icon={TbFileX}
+                />
+                <CardContractType 
+                  title='Prestacion de nuestros servicios'
+                  typeContract='servicios'
+                  Icon={TbLibraryPlus}
+                />
+                <CardContractType 
+                  title='Contrato Juzgado civil'
+                  typeContract='civil'
+                  Icon={TbLibraryPlus}
+                /> 
                 <div className='bg-white rounded-[20px] p-3 gap-4 flex flex-col  flex-1 hover:bg-[#ffffff81] transition duration-300 ease-in-out hover:scale-105 '>
                   <h4 className='text-[20px]'>Consultar Contrato</h4>
                   <span className='text-[13px] text-[#86868b]'>Esta opcion permite consultar un contrato</span>
-                  <div  className='flex gap-2 self-center outline-[1px] rounded-[20px] w-full justify-center p-1 outline-[#b1b1b1] cursor-pointer hover:bg-[#0077ed]
+                  <div  onClick={()=>navigate('/administracion')} className='flex gap-2 self-center outline-[1px] rounded-[20px] w-full justify-center p-1 outline-[#b1b1b1] cursor-pointer hover:bg-[#0077ed]
                   group hover:text-white'>
                     <TbSearch className='text-[25px] text-[#007bff] group-hover:text-white' />
-                     <button 
-                      onClick={()=>navigate('/administracion')}
-                     className='cursor-pointer'>Consultar</button> 
+                     <span 
+                      
+                     className='cursor-pointer'>Consultar</span> 
                   </div>
                 </div>
               </section>

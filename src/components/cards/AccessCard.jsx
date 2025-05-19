@@ -32,7 +32,7 @@ export default function AccessCard({ option }) {
             transition={{ duration: 0.2 }}
             className="mt-2"
           >
-            <Link to={option.to || "#"}>
+            <Link to={option.navigate || "#"}>
               <motion.span
                 className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm"
                 whileHover={{ x: 2 }}

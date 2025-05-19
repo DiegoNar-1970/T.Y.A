@@ -6,7 +6,7 @@ import { constTypeContract } from '../formContract/const/constTypeContract';
 import ServiceContractPdf from '../formContract/fields/ServiceContractPdf';
 import SubsanacionContractPDF from '../formContract/fields/SubsanacionContractPDF';
 
-export default function SuccessMessage({ text, closeAll,message,data}) {
+export default function SuccessMessage({ text, closeAll,message,data,link}) {
     const { setShowModal,typeContract,dataFormContract } = useSectionContractStore();
 
     const close = (e) =>{
@@ -34,6 +34,7 @@ export default function SuccessMessage({ text, closeAll,message,data}) {
           </p>
           <p className="text-sm mt-1">
              {message}
+             {link  }
           </p>
         </div>
       </div>

@@ -1,9 +1,15 @@
 import { Document, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import React from 'react';
 import backgroundImage from '../../../assets/images/background.jpeg';
-
+import firmaImage from '../../../assets/images/firm.png';
 // Estilos optimizados para 4 páginas
 const styles = StyleSheet.create({
+  signatureImage: {
+    width: 150, // Ajusta según el tamaño de tu imagen
+    height: 40, // Altura similar al grosor de la línea original
+    marginTop: 10,
+    marginBottom: 10
+  },
   page: {
     padding: 30,
     position: 'relative',
@@ -65,7 +71,7 @@ const styles = StyleSheet.create({
   signatureLine: {
     borderTop: '1px solid black',
     width: '100%',
-    marginTop: 30,
+    marginTop: 70,
   },
   authorizationTitle: {
     fontSize: 12,
@@ -261,20 +267,22 @@ const SubsanacionContractPDF = ({data}) => {
         
         <View style={styles.signatureSection}>
           <View style={styles.signatureBlock}>
-            <Text style={styles.text}>EL CLIENTE:</Text>
-            <Text style={[styles.text, styles.bold]}>{client_name}</Text>
-            <Text style={styles.text}>C.C {client_doc}</Text>
-            <View style={styles.signatureLine} />
-          </View>
-          
-          <View style={styles.signatureBlock}>
             <Text style={styles.text}>ACEPTO:</Text>
             <Text style={[styles.text, styles.bold]}>TRUJILLO Y ASOCIADOS LAW GROUP</Text>
             <Text style={[styles.text, styles.bold]}>MARTHA SOFIA OSPINA TRUJILLO</Text>
             <Text style={styles.text}>Representante legal.</Text>
             <Text style={styles.text}>C.C. 24.309.970</Text>
-            <View style={styles.signatureLine} />
+            <Image 
+              src={firmaImage} 
+              style={styles.signatureImage}
+            />
           </View>
+
+          <View style={[styles.signatureSection,{marginTop:100}]}>
+            <Text style={styles.text}>ACEPTO:</Text>
+            <Text style={[styles.text, styles.bold]}>{client_name}</Text>
+            <Text style={styles.text}>C.C {client_doc}</Text>
+          </View> 
         </View>
         
       </Page>
@@ -320,12 +328,11 @@ const SubsanacionContractPDF = ({data}) => {
           </Text>
         </View>
         
-        <View style={styles.signatureSection}>
+        <View style={[styles.signatureSection,{marginTop:100}]}>
           <View style={styles.signatureBlock}>
-            <Text style={styles.text}>EL CLIENTE:</Text>
+            <Text style={styles.text}>ACEPTO:</Text>
             <Text style={[styles.text, styles.bold]}>{client_name}</Text>
             <Text style={styles.text}>C.C {client_doc}</Text>
-            <View style={styles.signatureLine} />
           </View>
         </View>
       </Page>

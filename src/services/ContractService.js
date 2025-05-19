@@ -12,6 +12,12 @@ export const getContractsByDate = async (start, end) => {
   return res.data; // debe devolver { contracts, totalPages, currentPage }
 };
 
+export const getAnyContract = async (contract) => {
+  const API_URL = 'http://localhost:1234/contract/contracts-by-date'; 
+  const res = await axios.get(API_URL,contract )
+  return res; // debe devolver { contracts, totalPages, currentPage }
+};
+
 
 
 

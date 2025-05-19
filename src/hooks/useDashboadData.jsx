@@ -1,29 +1,37 @@
 import { useEffect, useState } from 'react';
 import { getGeneraInfo } from '../services/getGeneralInfo';
-//este es el acceso a la llave del local storage
+
 const STORAGE_KEY = 'dashboardData';
-//5 horas en total 
 const EXPIRATION_TIME = 5 * 60 * 60 * 1000; // 5 horas
 
 export const useDashboardData = () => {
-    //el estado que sera retornado
-    const [data, setData] = useState(null);
-    
-    useEffect(() => {
-        //acedemos y traemos los datos si existen 
-        const stored = localStorage.getItem(STORAGE_KEY);
-        const saved = stored ? JSON.parse(stored) : null;
-        
-        if (saved && Date.now() - saved.timestamp < EXPIRATION_TIME) {
-            setData(saved.data);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const saved = stored ? JSON.parse(stored) : null;
+
+    // Si los datos existen y no han expirado, se usan
+    if (saved && Date.now() - saved.timestamp < EXPIRATION_TIME) {
+      setData(saved.data);
     } else {
-        getGeneraInfo().then(response => {
-        setData(response);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({
-          data: response,
-          timestamp: Date.now()
-        }));
-      }).catch(console.error);
+      // Llamada al backend
+      getGeneraInfo()
+        .then(response => {
+          // Validamos que la respuesta sea válida antes de guardar
+          if (response && !response.error) {
+            setData(response);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({
+              data: response,
+              timestamp: Date.now()
+            }));
+          } else {
+            console.error("Respuesta inválida del backend:", response);
+          }
+        })
+        .catch(err => {
+          console.error("Error al obtener la información del backend:", err);
+        });
     }
   }, []);
 

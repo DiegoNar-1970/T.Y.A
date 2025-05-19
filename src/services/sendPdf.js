@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 
 export const sendToBackend = async (pdf,data,method) => {
   try{
@@ -10,12 +10,12 @@ export const sendToBackend = async (pdf,data,method) => {
   const clean = (value) => 
     typeof value === 'string' ? value.trim().toLowerCase() : value;
   
-  let typedoc=clean(data.demandantes[0].type_of_doc?data.demandantes[0].type_of_doc:null)
+  let typedoc=clean(data.demandantes[0].type_of_doc ? data.demandantes[0].type_of_doc : data.client_type_cc || null)
   let num_radicado=clean(data.num_radicado ? data.num_radicado : null)
   let name=clean(data.demandantes[0].name === null ?data.client_name : data.demandantes[0].name)
   let document=clean(data.demandantes[0].document ? data.demandantes[0].document : data.client_doc)
 
-  console.log('esto llega',data)
+
 
   const customer={
     name:name,
@@ -51,11 +51,15 @@ export const sendToBackend = async (pdf,data,method) => {
   formDataTosend.append('file', pdf, 'contract.pdf');
   formDataTosend.append('data',JSON.stringify(data))
   formDataTosend.append('folderSave',JSON.stringify('pdfs'))
-  const response = await Axios.post(`http://localhost:1234/control-files/${method}`,formDataTosend)
+
+  const response = await axios.post(`http://localhost:1234/control-files/${method}`,formDataTosend)
+  
   return response;
+
   }catch(err){
-    console.log(err)
+    console.error(err)
     return{
+
         statusCode:err.response?.data?.error.statusCode || 500,
         message:err.response?.data?.error.message || 'Error Volver a intentar, Si sigue sucediendo llamar a Diego ',
         code:err.response?.data?.error.code

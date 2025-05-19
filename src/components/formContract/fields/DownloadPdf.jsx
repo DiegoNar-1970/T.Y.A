@@ -59,7 +59,7 @@ export const DownloadPdf = () => {
           setViewButtons(false);
           return
         }
-        console.log('Respuesta exitosa', response);
+
         setIsLoading(false)
         setSendPdfAndEmail('Se ha enviado el correo y el email al Cliente')
         setViewButtons(false);
@@ -90,11 +90,9 @@ export const DownloadPdf = () => {
         setViewButtons(false);
         return
       }
-      console.log('Respuesta exitosa', response);
         setIsLoading(false);
         setViewButtons(false);
         setLinkGenre(`Link para firmar: ${response.data.linkToSigned}`)
-        console.log(response)
       } catch (error) {
         setErrorRes(error.BiMailSendmessage);
         setIsLoading(false);
