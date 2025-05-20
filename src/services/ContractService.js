@@ -1,8 +1,8 @@
 // services/ContractService.js
 import axios from 'axios';
-
+import { BACKEND_DOMAIN } from './constDomain';
 export const getContractsByDate = async (start, end) => {
-  const API_URL = 'http://localhost:1234/contract/contracts-by-date'; 
+  const API_URL = `${BACKEND_DOMAIN}/contract/contracts-by-date`; 
   const res = await axios.get(API_URL, {
     params: {
       start_date: start,
@@ -13,7 +13,7 @@ export const getContractsByDate = async (start, end) => {
 };
 
 export const getAnyContract = async (contract) => {
-  const API_URL = 'http://localhost:1234/contract/contracts-by-date'; 
+  const API_URL = `${BACKEND_DOMAIN}/contract/contracts-by-date'`; 
   const res = await axios.get(API_URL,contract )
   return res; // debe devolver { contracts, totalPages, currentPage }
 };

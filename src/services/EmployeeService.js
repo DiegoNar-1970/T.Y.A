@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { BACKEND_DOMAIN } from './constDomain';
 
 export const getAllEmployees = async () => {
-  const API_URL = 'http://localhost:1234/employee'; 
+  const API_URL = `${BACKEND_DOMAIN}/employee`; 
   const res = await axios.get(API_URL)
   return res.data; 
 };
@@ -17,7 +18,7 @@ export const getAllEmployees = async () => {
 
 //ESTO RETORNA 
 export const deleteEmployee = async (id) => {
-    const API_URL = `http://localhost:1234/employee/${id}`; 
+    const API_URL = `${BACKEND_DOMAIN}/employee/${id}`; 
     const res = await axios.delete(API_URL)
     return res.data; 
   };
@@ -29,7 +30,7 @@ export const deleteEmployee = async (id) => {
 //     "code": "ID_NOT_FOUND"
 //   }
 export const UpdateEmployee = async (id) => {
-    const API_URL = `http://localhost:1234/employee/update/${id}`; 
+    const API_URL = `${BACKEND_DOMAIN}/employee/update/${id}`; 
     const res = await axios.put(API_URL)
     return res.data; 
   };
@@ -38,7 +39,7 @@ export const UpdateEmployee = async (id) => {
 //   }
 
 export const createEmploye = async (data) => {
-    const API_URL = `http://localhost:1234/employee/create`; 
+    const API_URL = `${BACKEND_DOMAIN}/employee/create`; 
     const res = await axios.post(API_URL,data)
     return res.data; 
   };

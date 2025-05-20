@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FiEdit2, FiPlus, FiTrash2 } from 'react-icons/fi';
+import { BACKEND_DOMAIN } from '../../services/constDomain';
 import EmployeeModal from './EmployeeModal';
-
-const API_URL = 'http://localhost:1234/employee';
+const API_URL = `${BACKEND_DOMAIN}/employee`;
 
 const EmployeeTable = () => {
   const [employees, setEmployees] = useState([]);

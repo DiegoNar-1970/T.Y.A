@@ -27,6 +27,7 @@ import { login, logout, verifyToken } from '../services/login';
                 const res = await login(values)
                 setUser(res)
                 setIsAuth(true)
+                return
             }catch(error){
                 setError(error?.response?.data?.message)
             }

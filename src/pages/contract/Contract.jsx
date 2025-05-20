@@ -72,16 +72,19 @@ import { CardContractType } from './CardContractType';
                   title='Contrato Subsanación'
                   typeContract='subsanacion'
                   Icon={TbFileX}
-                />
+                  info='Documento unico'
+                  />
                 <CardContractType 
                   title='Prestacion de nuestros servicios'
                   typeContract='servicios'
                   Icon={TbLibraryPlus}
-                />
+                  info='Contrato casos Sic/Sif'
+                  />
                 <CardContractType 
                   title='Contrato Juzgado civil'
                   typeContract='civil'
                   Icon={TbLibraryPlus}
+                  info='Contrato juzgado jurisdicción civil'
                 /> 
                 <div className='bg-white rounded-[20px] p-3 gap-4 flex flex-col  flex-1 hover:bg-[#ffffff81] transition duration-300 ease-in-out hover:scale-105 '>
                   <h4 className='text-[20px]'>Consultar Contrato</h4>

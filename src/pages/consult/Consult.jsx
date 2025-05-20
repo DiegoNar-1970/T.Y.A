@@ -24,10 +24,10 @@ const Consult = () => {
       let params = {};
 
       if (searchType === 'contract') {
-        endpoint = 'http://localhost:1234/contract/get-any-contract';
+        endpoint = 'https://trujillo-y-asociados.up.railway.app/contract/get-any-contract';
         params = { num_contract: searchTerm };
       } else {
-        endpoint = 'http://localhost:1234/contract/get-any-contract';
+        endpoint = 'https://trujillo-y-asociados.up.railway.app/contract/get-any-contract';
         params = { num_radicado: searchTerm };
       }
 

@@ -12,8 +12,14 @@ const ContractTable = () => {
     try {
       setError('');
       const data = await getContractsByDate(start, end);
-      setContracts(data);
-      setShowTable(true);
+      if (data.length === 0) {
+        setError('No se encuentran datos en esas fechas.');
+        setContracts([]);
+        setShowTable(false);
+      } else {
+        setContracts(data);
+        setShowTable(true);
+      }
     } catch (err) {
       setError('Ocurrió un error al obtener los contratos. Inténtalo más tarde.');
       console.error(err);
@@ -39,7 +45,7 @@ const ContractTable = () => {
 
   return (
     <div className="bg-[#f5f5f7] min-h-screen px-6 py-12 font-sans text-gray-900">
-      <div className="max-w-4xl mx-auto">
+      <div className=" mx-auto">
         <h1 className="text-4xl font-semibold mb-12 text-center">Gestión de Contratos</h1>
 
         {!showTable && (
@@ -93,8 +99,11 @@ const ContractTable = () => {
                 <thead className="text-gray-500 uppercase">
                   <tr>
                     <th className="px-6 py-4"># Contrato</th>
+                    <th className="px-6 py-4">Cliente</th>
                     <th className="px-6 py-4">Empleado</th>
-                    <th className="px-6 py-4">Observación</th>
+                    <th className="px-6 py-4">Tipo de Contrato</th>
+                    <th className="px-6 py-4">Pago</th>
+                    <th className="px-6 py-4">Honorario</th>
                     <th className="px-6 py-4">Estado</th>
                     <th className="px-6 py-4">Fecha</th>
                     <th className="px-6 py-4">Acciones</th>
@@ -106,22 +115,46 @@ const ContractTable = () => {
                       key={c.id}
                       className="border-t border-gray-100 hover:bg-gray-50 transition"
                     >
-                      <td className="px-6 py-4 font-medium">{c.num_contract}</td>
-                      <td className="px-6 py-4">{c.id_employee || 'Sin asignar'}</td>
-                      <td className="px-6 py-4">{c.observation || 'N/A'}</td>
+                      <td className="px-6 py-4 font-medium">
+                        {c.num_contract || c.num_radicado || 'N/A'}
+                      </td>
+                      <td className="px-6 py-4">{c.customer_name}</td>
+                      <td className="px-6 py-4">{c.employee_name || 'Sin asignar'}</td>
+                      <td className="px-6 py-4 capitalize">{c.contract_type}</td>
+                      <td className="px-6 py-4">${Number(c.total_payment).toLocaleString()}</td>
+                      <td className="px-6 py-4">{c.type_pay}</td>
                       <td className="px-6 py-4">
                         <span className="inline-flex items-center gap-2">
                           <span
-                            className={`h-2.5 w-2.5 rounded-full ${c.asigned ? 'bg-green-500' : 'bg-red-500'}`}
+                            className={`h-2.5 w-2.5 rounded-full ${
+                              c.asigned ? 'bg-green-500' : 'bg-red-500'
+                            }`}
                           />
                           {c.asigned ? 'Firmado' : 'Pendiente'}
                         </span>
                       </td>
                       <td className="px-6 py-4">{new Date(c.created_at).toLocaleDateString()}</td>
                       <td className="px-6 py-4 flex gap-2 text-sm">
-                        <button onClick={() => console.log('Ver', c.id)} className="text-blue-600 hover:underline">Ver</button>
-                        <button onClick={() => console.log('Editar', c.id)} className="text-yellow-600 hover:underline">Editar</button>
-                        <button onClick={() => console.log('Eliminar', c.id)} className="text-red-600 hover:underline">Eliminar</button>
+                        <a
+                          href={c.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          Ver
+                        </a>
+                        <button
+                          onClick={() => console.log('Editar', c.id)}
+                          className="text-yellow-600 hover:underline"
+                        >
+                          Editar
+                        </button>
+                        <button
+                          onClick={() => console.log('Eliminar', c.id)}
+                          className="text-red-600 hover:underline"
+                        >
+                          Eliminar
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -136,4 +169,3 @@ const ContractTable = () => {
 };
 
 export default ContractTable;
-    

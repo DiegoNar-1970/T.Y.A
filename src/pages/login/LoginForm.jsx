@@ -104,7 +104,7 @@ const LoginForm = () => {
         <p className="mt-4 text-center text-xs text-gray-400">
           Al iniciar sesión, aceptas nuestros <a href="#" className="underline">Términos de servicio</a> y <a href="#" className="underline">Política de privacidad</a>
         </p>
-      </div>
+      </div>  
     </div>
   );
 };

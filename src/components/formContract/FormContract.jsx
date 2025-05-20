@@ -16,7 +16,8 @@ const FormContract = () => {
   const clientTypes = [
     { value: 'cedula', label: 'Cédula' },
     { value: 'pasaporte', label: 'Pasaporte' },
-    { value: 'extranjera', label: 'CC Extranjera' }
+    { value: 'extranjera', label: 'CC Extranjera' },
+    { value: 'nit', label: 'Nit' }
   ];
 
     const {

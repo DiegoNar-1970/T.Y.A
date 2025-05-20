@@ -18,6 +18,7 @@ const FormContract = lazy(() => import('./components/formContract/FormContract.j
 const SignaturePage = lazy(() => import('./pages/firmaDigital/SignaturePage.jsx'))
 const DashBoardPage = lazy(() => import('./pages/dashboard/DashBoardPage.jsx'))
 const ProtectedRouter = lazy(() => import('./components/secure/ProtectedRouter.jsx'))
+const CustomerLayout = lazy(() => import('./pages/customer/CustomerLayout.jsx'))
 
 function App() {
   const {user,isAuth,isLoading,logoutFunction} = useAuth();
@@ -79,7 +80,7 @@ function App() {
                   <Route path='contratos/formularioContrato' element={<FormContract/>}></ Route>
                   <Route path='dashboard' element={<DashBoardPage />}></Route> 
                   <Route path='/tabla-empleado' element={<EmployeeTable />}></Route> 
-
+                  <Route path='/clientes' element={<CustomerLayout />}></Route> 
                 </Route>
                 <Route path='/*'></Route>
           </Routes>
@@ -87,8 +88,8 @@ function App() {
 
         </main>
         <footer 
-        className=' [grid-area:footer] rounded-[18px] p-3' 
-        >footer</footer>
+        className=' [grid-area:footer] rounded-[18px] p-3 flex justify-center text-color-l-s color-text ' 
+        ><span>© 2025 Trujillo y Asociados Law Group. Todos los derechos reservados.</span></footer>
       </div>
         </Suspense>
         </ErrorBoundary>

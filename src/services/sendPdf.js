@@ -1,4 +1,6 @@
 import axios from "axios";
+import { BACKEND_DOMAIN } from './constDomain';
+
 
 export const sendToBackend = async (pdf,data,method) => {
   try{
@@ -52,7 +54,7 @@ export const sendToBackend = async (pdf,data,method) => {
   formDataTosend.append('data',JSON.stringify(data))
   formDataTosend.append('folderSave',JSON.stringify('pdfs'))
 
-  const response = await axios.post(`http://localhost:1234/control-files/${method}`,formDataTosend)
+  const response = await axios.post(`${BACKEND_DOMAIN}/control-files/${method}`,formDataTosend)
   
   return response;
 

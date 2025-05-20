@@ -41,6 +41,9 @@ html{
 }
 
 @layer base {
+  .color-text{
+    color: var(--color-secundario);
+  }
   .text-apple{
     color: var(--color-text-icons);
   }
